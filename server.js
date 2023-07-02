@@ -29,6 +29,11 @@ app.use(bodyParser.json());
 const cors = require("cors");
 app.use(cors());
 
+// Favicon
+const favicon = require("serve-favicon");
+const path = require('node:path'); 
+app.use(favicon(path.join(__dirname,'website','public','images','favicon.ico')));
+
 // ------------------------- SETUP API CALLS -------------------------
 
 async function callWeatherAPI(locationData) {
