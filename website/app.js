@@ -1,3 +1,7 @@
+// For security reasons, the API call to OpenWeatherMap is done through
+// the backend of this application, so the API key is not exposed to the
+// client. Therefore, the API key is included in `server.js` and not here.
+
 // Retrieves the journal entry from the server. Returns the journal
 // data or {error: error} if an error occurred.
 async function retrieveJournalGET() {
