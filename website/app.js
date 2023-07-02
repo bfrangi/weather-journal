@@ -86,3 +86,60 @@ async function retrieveWeatherPOST(locationData) {
     return { error: error };
   }
 }
+
+// Function to obtain the user data and post the journal entry. No
+// return value.
+function postJournal() {
+  const zip = document.getElementById("zip").value;
+  const country = document.getElementById("country").value;
+  const feelings = document.getElementById("feelings").value;
+  if (!feelings) {
+    alert("Please enter your feelings");
+    return;
+  }
+  saveJournal({ zipCode: zip, countryCode: country }, feelings).then(
+    (journal) => {
+      if (!journal || journal.error) {
+        console.log(journal.error);
+        return;
+      }
+      updateUI(journal);
+    }
+  );
+}
+
+// Function to obtain the latest journal entry and update the UI. No
+// return value.
+function getJournal() {
+  retrieveJournalGET().then((journal) => {
+    if (!journal || journal.error) {
+      console.log(journal.error);
+      return;
+    }
+    updateUI(journal);
+  });
+}
+
+// Function to update UI and add the latest journal entry. No return
+// value.
+function updateUI(journal) {
+  document.getElementById("zip").value = "";
+  document.getElementById("country").value = null;
+  document.getElementById("feelings").value = "";
+  if (Object.keys(journal).length === 0) {
+    document.getElementById("date").innerHTML = "";
+    document.getElementById("temp").innerHTML = "";
+    document.getElementById("content").innerHTML = "No entries yet";
+  } else {
+    document.getElementById("date").innerHTML = journal.date;
+    document.getElementById("temp").innerHTML =
+      "Temperature: " + journal.weatherData.temperature + " F";
+    document.getElementById("content").innerHTML =
+      "Feelings: " + journal.journalContent;
+  }
+}
+
+// Get the latest journal entry when the page loads
+getJournal();
+// Event listener for the generate button. Calls the postJournal
+document.getElementById("generate").addEventListener("click", postJournal);

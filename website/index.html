@@ -10,9 +10,7 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <div class="header">
-      Weather Journal App
-    </div>
+    <div class="header">Weather Journal App</div>
     <div id="app-container">
       <div class="app">
         <h1 class="holder headline">New Journal Entry</h1>
@@ -311,54 +309,4 @@
     </div>
     <script src="app.js" type="text/javascript"></script>
   </body>
-  <script>
-    function postJournal() {
-      const zip = document.getElementById("zip").value;
-      const country = document.getElementById("country").value;
-      const feelings = document.getElementById("feelings").value;
-      if (!feelings) {
-        alert("Please enter your feelings");
-        return;
-      }
-      saveJournal({ zipCode: zip, countryCode: country }, feelings).then(
-        (journal) => {
-          if (!journal || journal.error) {
-            console.log(journal.error);
-            return;
-          }
-          updateUI(journal);
-        }
-      );
-    }
-
-    function getJournal() {
-      retrieveJournalGET().then((journal) => {
-        if (!journal || journal.error) {
-          console.log(journal.error);
-          return;
-        }
-        updateUI(journal);
-      });
-    }
-
-    function updateUI(journal) {
-      document.getElementById("zip").value = "";
-      document.getElementById("country").value = null;
-      document.getElementById("feelings").value = "";
-      if (Object.keys(journal).length === 0) {
-        document.getElementById("date").innerHTML = "";
-        document.getElementById("temp").innerHTML = "";
-        document.getElementById("content").innerHTML = "No entries yet";
-      } else {
-        document.getElementById("date").innerHTML = journal.date;
-        document.getElementById("temp").innerHTML =
-          "Temperature: " + journal.weatherData.temperature + " F";
-        document.getElementById("content").innerHTML =
-          "Feelings: " + journal.journalContent;
-      }
-    }
-
-    document.getElementById("generate").addEventListener("click", postJournal);
-    getJournal();
-  </script>
 </html>
