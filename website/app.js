@@ -35,7 +35,7 @@ async function addJournalPOST(weatherData, journalContent) {
     return;
   }
   let d = new Date();
-  let newDate = d.getMonth() + "." + d.getDate() + "." + d.getFullYear();
+  let newDate = d.toUTCString();
   const journalData = {
     weatherData: weatherData,
     date: newDate,

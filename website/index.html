@@ -10,18 +10,21 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
+    <div class="header">
+      Weather Journal App
+    </div>
     <div id="app-container">
       <div class="app">
-        <h1 class="holder headline">Weather Journal App</h1>
+        <h1 class="holder headline">New Journal Entry</h1>
         <div class="holder zip">
-          <label for="zip">Zipcode</label>
-          <input type="text" id="zip" placeholder="enter zip code here" />
+          <div class="label">Zipcode</div>
+          <input type="text" id="zip" placeholder="Enter zip code here" />
         </div>
 
         <div class="holder country">
-          <label for="country">Enter Country here</label>
+          <div class="label">Country</div>
           <select class="form-select" id="country" name="country">
-            <option>select country</option>
+            <option>Select country</option>
             <option value="AF">Afghanistan</option>
             <option value="AX">Aland Islands</option>
             <option value="AL">Albania</option>
@@ -282,7 +285,7 @@
         </div>
 
         <div class="holder feel">
-          <label for="feelings">How are you feeling today?</label>
+          <div class="label">How are you feeling today?</div>
           <textarea
             class="myInput"
             id="feelings"
@@ -290,8 +293,12 @@
             rows="9"
             cols="50"
           ></textarea>
-          <button id="generate" type="submit">Generate</button>
         </div>
+
+        <div class="holder generate">
+          <button id="generate" type="submit">Save Journal Entry</button>
+        </div>
+
         <div class="holder entry">
           <div class="title">Most Recent Entry</div>
           <div id="entryHolder">
@@ -345,8 +352,9 @@
       } else {
         document.getElementById("date").innerHTML = journal.date;
         document.getElementById("temp").innerHTML =
-          journal.weatherData.temperature;
-        document.getElementById("content").innerHTML = journal.journalContent;
+          "Temperature: " + journal.weatherData.temperature + " F";
+        document.getElementById("content").innerHTML =
+          "Feelings: " + journal.journalContent;
       }
     }
 
